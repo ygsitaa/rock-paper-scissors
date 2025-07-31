@@ -71,3 +71,37 @@ Certainly! Here’s a summary of the issues, help, and fixes discussed for your 
 
 **Summary:**  
 You learned to call your input functions correctly, handle case sensitivity, avoid double prompts, ensure your score logic works by passing the right values, and keep your score variables in the correct scope so they can be updated and accessed as needed.
+
+
+RPS-UI BRANCH :
+
+Help given by Copilot when i was stuck :
+
+Certainly! Here’s a summary of the modifications and what was wrong:
+
+### What Was Wrong
+- You tried to use `buttons.addEventListener`, but `buttons` is a NodeList, not a single button element. NodeLists don’t have an `addEventListener` method.
+- Your code may not have worked if the script was loaded before the DOM was ready, causing `querySelectorAll` and `querySelector` to return `null` or empty results.
+
+### Modifications Made
+1. **Event Listener Fix:**  
+   You replaced `buttons.addEventListener` with a `forEach` loop:
+   ```javascript
+   buttons.forEach(button => {
+       button.addEventListener("click", function() {
+           const playerSelection = button.value;
+           playRound(playerSelection, computerSelection());
+       });
+   });
+   ```
+   This attaches a click event to each button individually.
+
+2. **Script Placement:**  
+   You moved your `<script src="rock-paper-scissors.js"></script>` to the end of the `<body>` in your HTML file.  
+   This ensures the DOM is fully loaded before your script runs.
+
+### What You Must Do to Fix
+- Always use a loop (like `forEach`) to add event listeners to multiple elements selected with `querySelectorAll`.
+- Place your script tag at the end of the `<body>` or use a `DOMContentLoaded` event to ensure DOM elements are available when your script runs.
+
+These changes ensure your game works as expected: clicking a button plays a round and updates the result in the `.results` div.
